@@ -198,6 +198,11 @@ module SwaggerClient
       'Basic ' + ["#{username}:#{password}"].pack('m').delete("\r\n")
     end
 
+    # Gets Server to Server Auth token string
+    def server_to_server_auth_token
+      'BotConnector ' + ENV['DIRECTLINESECRET']
+    end
+
     # Returns Auth Settings hash for api client.
     def auth_settings
       {
@@ -208,6 +213,13 @@ module SwaggerClient
             key: 'Authorization',
             value: basic_auth_token
           },
+        'server-to-server' =>
+          {
+            type: 'server-to-server',
+            in: 'header',
+            key: 'Authorization',
+            value: server_to_server_auth_token
+          }
       }
     end
   end
